@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imprimir Carnet - IGCA</title>
+    <link type="text/css" rel="shortcut icon" href="imgs/logo-mywebsite-urian-viera.svg" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <script>    
+        window.onload = function () {
+            const params = new URLSearchParams(window.location.search);
+            const doc = params.get('documento');
+            if (doc) {
+                document.getElementById('nro_documento').value = doc;
+                document.forms[0].submit(); // o llamar a tu función JS que genera el PDF
+            }
+        };
+    </script>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <span class="navbar-brand"> 
+        Imprimir Carnet Segunda Camara
+        </span>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <a class="btn btn-primary" href="misioneros.html">ir a Misioneros</a>
+    </nav>
+
+    <div class="container mt-5">
+        <h3 class="text-center mt-5"></h3>
+    </div>
+
+    <form method="POST" action="asignar_variables_al_pdf.php" class="login-form" enctype="multipart/form-data" style="height: 380px !important;">
+        <img class="logo" src="imgs/images.png" alt="">
+        <input id="tipo" name="tipo" type="hidden" value="ungido">
+        <div class="input">
+            <i class="zmdi zmdi-file-text"></i>
+            <input type="text" name="nro_documento" id="nro_documento" placeholder="Numero de documento" class="username">
+        </div>
+
+        <button class="btn-login" value="Entrar" type="submit">Generar </button>
+    </form>
+
+
+
+</body>
+
+</html>
