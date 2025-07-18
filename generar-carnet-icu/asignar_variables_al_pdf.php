@@ -14,84 +14,68 @@
 
     # Pagina 1
     $pdf->AddPage('P'); 
-    $tipo =  $_REQUEST['tipo']; 
-    if ($tipo=='misionero'){
-        $pdf->setSourceFile('Files_Pdf/carnet-adelante-m.pdf'); 
-        $color = 0;
-    }
-    else{
-        $pdf->setSourceFile('Files_Pdf/carnet-adelante.pdf');
-        $color = 255; 
-    }    
-    
+    $cargo =  $_REQUEST['cargo']; 
+    $ambito =  $_REQUEST['ambito']; 
+    $nro_filial =  $_REQUEST['nro_filial']; 
+
+    $pdf->setSourceFile('Files_Pdf/carnet.pdf'); 
+    $color = 0;
+        
     $tplIdx = $pdf->importPage(1); 
     $pdf->useTemplate($tplIdx); 
 
-    $top = 15.5;
-    $der = 37.5;
-    
-    if ($Imagen<>''){
-        $pdf->Image($Imagen,$der,$top,26.1,24.9);  
-    }
 
-    $top = $top + 25;
-    $der = $der - 2;
-    
+     $top = 29;
+    $der = 45;
   
-    $pdf->SetFont('helvetica', 'B', '10'); 
+    $pdf->SetFont('helvetica', 'B', '14'); 
     $pdf->SetXY($der,$top);
     $pdf->SetTextColor($color,$color,$color);
     $nombreEncargadoUtf8 = utf8_decode($nombreEncargado);
     $pdf->Write(10,$nombreEncargadoUtf8);
-
-    $top = $top + 3;
-
-    $pdf->SetFont('helvetica', '', '9'); 
-    $pdf->SetXY($der,$top);
-    $pdf->SetTextColor($color,$color,$color);
-    $pdf->Write(10,'ID:' . $Numero );
-
-    $top = $top + 3;
+ 
+    $top = $top + 8;
     
-    $pdf->SetFont('helvetica', '', '9'); 
+    $pdf->SetFont('helvetica', '', '12'); 
     $pdf->SetXY($der,$top);
     $pdf->SetTextColor($color,$color,$color);
     $pdf->Write(10,'DNI:' . $nroDocumento);   
     
-    $top = $top + 3;
+    $top = $top + 6;
 
-    $pdf->SetFont('helvetica', '', '9'); 
+    $pdf->SetFont('helvetica', '', '12'); 
+    $pdf->SetXY($der,$top);
+    $pdf->SetTextColor($color,$color,$color); 
+    $pdf->Write(10,$cargo);
+
+     $top = $top + 6;
+   
+    $pdf->SetFont('helvetica', '', '12'); 
     $pdf->SetXY($der,$top);
     $pdf->SetTextColor($color,$color,$color);
-    if ($tipo=='misionero'){
-         $pdf->Write(10,'Instructor');  
-    }
-    else{
-        $pdf->Write(10,$Cargo);
-    }   
+     if($ambito=='Filial'){
+        $ambito = $ambito . ' Nro. ' . $nro_filial;
+    } 
+    $pdf->Write(10,$ambito);
       
-    $pdf->AddPage('P'); 
-    if ($tipo=='misionero'){
-        $pdf->setSourceFile('Files_Pdf/carnet-atras-m.pdf'); 
+         $top = $top + 66;
+    $der =  $der + 43;
+    
+    if ($Imagen<>''){
+        $pdf->Image($Imagen,$der+1,$top+1,27,27);  
     }
-    else{
-        $pdf->setSourceFile('Files_Pdf/carnet-atras.pdf'); 
-    }   
-    $tplIdx = $pdf->importPage(1); 
-    $pdf->useTemplate($tplIdx);  
+    
     //
     $d=strtotime("+2 Years"); 
     //
-    $top = $top+3;
-    $pdf->SetFont('helvetica', '', '7'); 
+    $top = $top+20;
+     $der =  $der - 35;
+    $pdf->SetFont('helvetica', '', '9'); 
     $pdf->SetXY($der+7,$top);
     $pdf->SetTextColor(0,0,0);
-    if ($tipo=='misionero'){
-         $pdf->Write(10,'Fecha de emision '. date("d-m-Y").' - Vence '. date("d-m-Y", $d));  
-    }
-    else{
-        $pdf->Write(10,'Fecha de emision '. date("d-m-Y").' - Vence '. date("d-m-Y", $d));
-    }   
+   
+        $pdf->Write(10,''. date("d-m-Y", $d));
+     
     //  
     $pdf->Output('Files_Tmp/' . $nroDocumento . '.pdf', 'F'); //SALIDA DEL PDF
     //    $pdf->Output('original_update.pdf', 'F');
