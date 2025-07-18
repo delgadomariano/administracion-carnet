@@ -17,7 +17,10 @@ $jo = json_decode($json);
 $nombreEncargado =   $jo[0]->name; 
 $Numero 		 =   $jo[0]->registration; 
 $codCargo =  $jo[0]->priestType;
-$esObispo =  $jo[0]->isBishop;
+$esObispo =  $jo[0]->isBishop; 
+$esMisionero = $jo[0]->isMissionary; 
+$esInstructor = $jo[0]->isInstructor; 
+
 if ($codCargo == '') {
   $Cargo = 'Grey';
 }

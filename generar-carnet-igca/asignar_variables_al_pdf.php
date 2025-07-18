@@ -28,7 +28,6 @@
     
     $pdf->useTemplate($tplIdx); 
 
-   
     $top = 9.8;
     $der = 219;
     
@@ -39,7 +38,6 @@
     $top = $top + 25;
     $der = $der ;
     
-  
     $pdf->SetFont('helvetica', 'B', '10'); 
     $pdf->SetXY($der,$top);
     $pdf->SetTextColor($color,$color,$color);
@@ -66,7 +64,14 @@
     $pdf->SetXY($der,$top);
     $pdf->SetTextColor($color,$color,$color);
     if ($tipo=='misionero'){
-         $pdf->Write(10,'Instructor');  
+        if($esMisionero=='SI')
+        {
+            $pdf->Write(10,'Instructor Nacional');  
+        }
+        else
+        {
+            $pdf->Write(10,'Instructor Local');
+        }
     }
     else{
         $pdf->Write(10,$Cargo);
