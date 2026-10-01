@@ -4,6 +4,10 @@ RewriteCond %{HTTP_HOST} ^sedes\.ageacac\.org\.ar$ [OR]
 RewriteCond %{HTTP_HOST} ^www\.sedes\.ageacac\.org\.ar$
 RewriteRule ^/?$ "https\:\/\/gnosisargentina\.org\.ar\/sedes\-gnosticas\-argentinas\/" [R=301,L]
 
+# Solo se sirve index.php; el resto (app/, lib/, plantillas/, obsoletos/) tiene su propio "deny".
+DirectoryIndex index.php
+Options -Indexes
+
 # php -- BEGIN cPanel-generated handler, do not edit
 # Set the “ea-php56” package as the default “PHP” programming language.
 <IfModule mime_module>
